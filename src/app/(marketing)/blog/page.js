@@ -1,19 +1,22 @@
 import fs from "node:fs";
 import path from "node:path";
-import Link from "next/link";
+import BlogSearch from "@/components/BlogSearch";
 
 export const metadata = { title: "Blog | LATAM Info" };
 
 export default function BlogIndexPage() {
-  const blogDir = path.join(process.cwd(), "src", "content", "blog");
-  const files = fs.existsSync(blogDir)
-    ? fs.readdirSync(blogDir).filter(f => f.endsWith(".mdx"))
-    : [];
+  const dir = path.join(process.cwd(), "src", "content", "blog");
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith(".mdx")) : [];
 
-  const posts = files.map(filename => ({
-    slug: filename.replace(/\.mdx$/, ""),
-    title: filename.replace(/\.mdx$/, "").replace(/-/g, " "),
-  }));
+  const posts = files.map((filename) => {
+    const slug = filename.replace(/\.mdx$/, "");
+    const stat = fs.statSync(path.join(dir, filename));
+    return {
+      slug,
+      title: slug.replace(/-/g, " "),
+      mtime: stat.mtime.getTime(),
+    };
+  }).sort((a, b) => b.mtime - a.mtime);
 
   return (
     <main>
@@ -21,19 +24,7 @@ export default function BlogIndexPage() {
       <p className="mt-3 text-gray-600 dark:text-gray-300">
         Noticias, análisis técnicos y guías sobre juegos y regulación en LATAM.
       </p>
-
-      <ul className="mt-6 space-y-2">
-        {posts.length === 0 && (
-          <li className="text-sm text-gray-500">Aún no hay artículos.</li>
-        )}
-        {posts.map(p => (
-          <li key={p.slug}>
-            <Link href={`/blog/${p.slug}`} className="underline">
-              {p.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <BlogSearch items={posts.map(({slug,title}) => ({slug,title}))} />
     </main>
   );
 }
