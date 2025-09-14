@@ -1,57 +1,34 @@
-import Script from "next/script";
-
-export const metadata = { title: "Juego Responsable | LATAM Info" };
+export const metadata = { title: "Juego Responsable LATAM | LATAM Info" };
 
 export default function Page() {
-  const faq = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "¿El RTP garantiza ganancias?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text":
-            "No. El RTP es un promedio a largo plazo; en sesiones cortas la varianza puede producir resultados alejados del promedio."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Qué significa alta volatilidad?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text":
-            "Resultados menos frecuentes pero potencialmente mayores; requiere gestionar expectativas y límites personales."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Operan juegos en este sitio?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text":
-            "No. Este es un portal informativo. Enlazamos a recursos y, más adelante, a comparativas objetivas de operadores."
-        }
-      }
-    ]
-  };
-
   return (
     <main>
-      <h1 className="text-2xl font-semibold">Juego Responsable</h1>
-      <p className="mt-4 text-gray-600 dark:text-gray-300">
-        Principios y recomendaciones para un juego más seguro en LATAM:
-        límites de tiempo y presupuesto, evitar perseguir pérdidas y conocer
-        herramientas de autoexclusión cuando existan.
+      <h1 className="text-2xl font-semibold">Juego Responsable en Latinoamérica</h1>
+      <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-3xl">
+        Este sitio promueve la importancia del juego responsable en todos los
+        países de Latinoamérica. El objetivo es ofrecer información clara y
+        recursos de apoyo para que cada persona pueda mantener control sobre su
+        tiempo y presupuesto.
       </p>
 
-      {/* JSON-LD FAQ */}
-      <Script
-        id="faq-juego-responsable"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
-      />
+      <h2 className="mt-8 text-xl font-semibold">Principios básicos</h2>
+      <ul className="mt-3 list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-2">
+        <li>Edad mínima de 18 años para participar en juegos de azar.</li>
+        <li>Define un presupuesto fijo y no lo sobrepases.</li>
+        <li>Establece límites de tiempo y respétalos.</li>
+        <li>No persigas pérdidas ni uses el juego como solución financiera.</li>
+      </ul>
+
+      <h2 className="mt-8 text-xl font-semibold">Recursos pan-LATAM</h2>
+      <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        En algunos países existen líneas de ayuda o portales oficiales de
+        información. Te recomendamos buscar:
+      </p>
+      <ul className="mt-3 list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+        <li>Centros de atención en salud mental y adicciones.</li>
+        <li>Sitios web gubernamentales sobre regulación del juego.</li>
+        <li>Organizaciones no gubernamentales con programas de apoyo.</li>
+      </ul>
     </main>
   );
 }
